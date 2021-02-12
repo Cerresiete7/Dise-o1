@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(new MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false);
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final _foto1 =
+      'https://upload.wikimedia.org/wikipedia/commons/1/1e/Fencer-anim.png';
+  final _foto2 ='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/._JPEG_5.jpg/800px-._JPEG_5.jpg';
+  final txtStyle1 = TextStyle(color: Colors.black, fontSize: 50.0);
+  final txtStyle2 = TextStyle(color: Colors.black, fontSize: 30.0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: PageView(scrollDirection: Axis.vertical, children: <Widget>[
+      _pagina(
+          url: _foto1,
+          t1: 'Marco Abel',
+          t2: 'Universidad Tecnologica de Puebla',
+          icon: Icons.keyboard_arrow_down),
+      _pagina(
+          url: _foto2,
+          t1: 'Desarrollo Movil',
+          t2: 'Materia',
+          icon: Icons.keyboard_arrow_up)
+    ]));
+  }
+
+  Widget _pagina({String url, String t1, String t2, IconData icon}) {
+    return Stack(children: <Widget>[
+      _fondo(imagen: url),
+      _contenido(t1: t1, t2: t2, icon: icon)
+    ]);
+  }
+
+  Widget _fondo({String imagen}) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Image(image: NetworkImage(imagen), fit: BoxFit.cover),
+    );
+  }
+
+  Widget _contenido({String t1, String t2, IconData icon}) {
+    return SafeArea(
+        child: Column(children: <Widget>[
+      SizedBox(height: 50.0),
+      Text(t1, style: txtStyle1),
+      Text(t2, style: txtStyle2),
+      Expanded(child: Container()),
+      Icon(icon, size: 70.0, color: Colors.pinkAccent)
+    ]));
+  }
+}
